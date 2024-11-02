@@ -1,4 +1,4 @@
-![[assets/art.jpg]]
+![art](/assets/art.jpg)
 
 #### ImageMagick is required!
 ### 1. Install:
