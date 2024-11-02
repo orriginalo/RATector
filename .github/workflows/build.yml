@@ -1,0 +1,38 @@
+on: [push, pull_request, workflow_dispatch]
+
+name: Build
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: sayyid5416/pyinstaller@v1
+        with:
+          python_ver: '3.12'
+          spec: 'main.py'
+          requirements: 'requirements.txt'
+          upload_exe_with_name: 'RATector.exe'
+          options: --onefile --name "RATector" --icon=icon.ico
+      - name: Upload Windows Executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: RATector-Windows
+          path: RATector.exe
+
+  build_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: sayyid5416/pyinstaller@v1
+        with:
+          python_ver: '3.12'
+          spec: 'main.py'
+          requirements: 'requirements.txt'
+          upload_exe_with_name: 'RATector'  # без .exe для Linux
+          options: --onefile --name "RATector" --icon=icon.ico
+      - name: Upload Linux Executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: RATector-Linux
+          path: RATector  # без .exe для Linux
